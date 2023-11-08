@@ -1,12 +1,15 @@
 from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
+
+from home.models import Setting
+
+
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the polls index.")
 def index(request):
-    metin = "Mahmut"
-    # return HttpResponse("Merhaba %s" % metin)
-    context = {'metin': metin }
+    setting = Setting.objects.get(pk=1)
+    context = {'setting': setting}
     return render(request, 'index.html', context)
 
 # def detail(request, question_id):

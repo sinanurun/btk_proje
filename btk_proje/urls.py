@@ -14,12 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# adminde resim dosyalarının görüntülenmesi için
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+
+from btk_proje import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')), # herhangi bir url belirtmeden home url gitmesi için
     path('home/', include('home.urls')),
     path('product/', include('product.urls')),
+
+#     ckeditor için
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
+
+# resimlerin veya static dosyaların admin tarafında gösterilmesi için
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

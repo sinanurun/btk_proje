@@ -1,7 +1,10 @@
 {% extends 'homebase.html' %}
-{% block title %}index sayfası {% endblock %}
+{% block title %} {{ setting.title }}{% endblock %}
 {% block description %} index description {% endblock %}
 {% block keywords %} index keywords {% endblock %}
+
+<!-- aşağı kısım sonradan eklenecek -->
+{% block head %} <link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url }}" >  {% endblock %}
 
 {% block sidebar %} {% include 'sidebar.html' %}  {% endblock %}
 
