@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+import home
 from btk_proje import settings
 
 urlpatterns = [
@@ -26,6 +27,10 @@ urlpatterns = [
     path('', include('home.urls')), # herhangi bir url belirtmeden home url gitmesi için
     path('home/', include('home.urls')),
     path('product/', include('product.urls')),
+    # blog sayfaları
+    path("hakkimizda", home.views.hakkimizda, name="hakkimizda"),
+    path("referanslar", home.views.referanslar, name="referanslar"),
+    path("iletisim", home.views.iletisim, name="iletisim"),
 
 #     ckeditor için
     path('ckeditor/', include('ckeditor_uploader.urls')),
