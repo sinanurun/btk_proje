@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # oluşturulan uygulamalar
     'home.apps.HomeConfig',
     'product.apps.ProductConfig',
+    'user.apps.UserConfig',
+    'order.apps.OrderConfig',
     # eklenen eklentiler
     'ckeditor',
     'ckeditor_uploader',

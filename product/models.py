@@ -1,6 +1,9 @@
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import User
 from django.db import models
+from django.forms import ModelForm, TextInput, RadioSelect, Textarea
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
@@ -26,6 +29,8 @@ class Category(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['title']
 
+    def get_absolute_url(self):
+        return reverse('categoryProducts', kwargs={'slug': self.slug})
 
     # Eski hali
     # def __str__(self):
@@ -66,6 +71,9 @@ class Product(models.Model):
 
     image_tag.short_descripion = 'Image'
 
+    def get_absolute_url(self):
+        return reverse('productDetail', kwargs={'slug': self.slug})
+
 
 #     urunler için resim galerisi oluşturmak için
 class Images(models.Model):
@@ -80,3 +88,26 @@ class Images(models.Model):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
 
     image_tag.short_descripion = 'Image'
+class Comment(models.Model):
+    STATUS = (
+        ('New', 'New'),
+        ('True', 'True'),
+        ('False', 'False'),
+    )
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=50, blank=True)
+    comment = models.CharField(max_length=250,blank=True)
+    rate = models.IntegerField(default=1)
+    ip = models.CharField(max_length=20, blank=True)
+    status=models.CharField(max_length=10,choices=STATUS, default='New')
+    create_at=models.DateTimeField(auto_now_add=True)
+    update_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.subject
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['subject', 'comment', 'rate']

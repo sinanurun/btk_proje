@@ -27,6 +27,9 @@ urlpatterns = [
     path('', include('home.urls')), # herhangi bir url belirtmeden home url gitmesi için
     path('home/', include('home.urls')),
     path('product/', include('product.urls')),
+    path('user/', include('user.urls')),
+    path('order/', include('order.urls')),
+
     # blog sayfaları
     path("hakkimizda", home.views.hakkimizda, name="hakkimizda"),
     path("referanslar", home.views.referanslar, name="referanslar"),

@@ -14,11 +14,11 @@
     <!-- Page Header Start -->
     <div class="container-fluid bg-secondary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">{{  urunKategori.title }}</h1>
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Ürün Arama</h1>
             <div class="d-inline-flex">
                 <p class="m-0"><a href="/">Home</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">{{  urunKategori.title }}</p>
+                <p class="m-0">Ürün Arama</p>
             </div>
         </div>
     </div>
@@ -190,8 +190,8 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
-                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                                <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                <a href="/product_detail/{{ urun.id }}/{{ urun.slug }}" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                                <a href="/addcart/{{ urun.id }}/{{ urun.slug }}" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                             </div>
                         </div>
                     </div>

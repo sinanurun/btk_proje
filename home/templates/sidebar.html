@@ -69,11 +69,30 @@
                             <a href="/referanslar" class="nav-item nav-link">Referanslar</a>
                             <a href="/iletisim" class="nav-item nav-link">İletişim</a>
                         </div>
+
+
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="" class="nav-item nav-link">Login</a>
-                            <a href="" class="nav-item nav-link">Register</a>
+                            {%  if user.id is not None %}
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> Merhaba {{ user.username }}</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                          <a href="/user"  class="dropdown-item">User Profile</a>
+         <a href="/user/orders"  class="dropdown-item">My Orders</a>
+         <a href="/user/orders_product"  class="dropdown-item">My Order Product</a>
+         <a href="/user/comments"  class="dropdown-item">My Comments</a>
+         <a href="/user/favorits"  class="dropdown-item">My Favorits</a>
+         <a href="/user/products"  class="dropdown-item">My Products</a>
+         <a href="/logout"  class="dropdown-item">Logout</a>
+                                </div>
+                            </div>
+                                {% else %}
+                                  <a href="/login" class="nav-item nav-link">Login</a>
+                            <a href="/signup" class="nav-item nav-link">Signup</a>
+                            {% endif %}
                         </div>
                     </div>
+
+
                 </nav>
                 {% if page == 'home' %}
                 {% include 'slider.html' %}
