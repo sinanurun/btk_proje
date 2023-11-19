@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from home.forms import SearchForm, LoginForm, SignUpForm
 from home.models import Setting, ContactForm, ContactFormMessage, UserProfileForm, UserProfile
+from order.models import ShopCart
 from product.models import Product, Category, Images, Comment
 
 
@@ -150,6 +151,7 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
+                request.session['cart_items'] = ShopCart.objects.filter(user_id=user.id).count()
                 messages.success(request, "Başarılı şekilde oturum açtınız {}".format(user.username))
                 return HttpResponseRedirect('/login')
             else:

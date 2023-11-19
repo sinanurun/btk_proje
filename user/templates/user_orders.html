@@ -35,7 +35,7 @@
                         </div>
                         <table class="shopping-cart-table table">
                             <tr>
-                                <th class="text-left">Id </th>
+                                <th class="text-left">Sipariş Kodu </th>
                                 <th class="text-left">First Name </th>
                                 <th class="text-left">Last Name </th>
                                 <th class="text-left">Total </th>
@@ -45,7 +45,7 @@
                             </tr>
                             {% for rs in orders %}
                                 <tr>
-                                    <td class="text-left">{{ rs.id}} </td>
+                                    <td class="text-left">{{ rs.code}} </td>
                                     <td class="text-left">{{ rs.first_name}} </td>
                                     <td class="text-left">{{ rs.last_name}} </td>
                                     <td class="text-left">{{ rs.total}} </td>
