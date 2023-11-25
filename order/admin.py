@@ -1,12 +1,17 @@
 from django.contrib import admin
 
-from order.models import ShopCart, OrderProduct, Order
+from order.models import ShopCart, OrderProduct, Order, AddFavorite
 
 
 # Register your models here.
 class ShopCartAdmin(admin.ModelAdmin):
     list_display = ['product','user','quantity','price','amount' ]
     list_filter = ['user']
+
+class FavoriteProductsAdmin(admin.ModelAdmin):
+    list_display = ['product','user']
+    list_filter = ['user']
+
 
 class OrderProductline(admin.TabularInline):
     model = OrderProduct
@@ -26,6 +31,7 @@ class OrderProductAdmin(admin.ModelAdmin):
     list_display = ['user', 'product','price','quantity','amount']
     list_filter = ['user']
 
+admin.site.register(AddFavorite, FavoriteProductsAdmin)
 admin.site.register(ShopCart,ShopCartAdmin)
 admin.site.register(Order,OrderAdmin)
 admin.site.register(OrderProduct,OrderProductAdmin)

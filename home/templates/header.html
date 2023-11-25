@@ -58,9 +58,13 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
+                <a href="/order/favorites" class="btn border">
                     <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span class="badge">{% if request.session.favorite_items > 0 %}
+                    {{ request.session.favorite_items }}
+                        {% else %}
+                        0
+                    {% endif %}</span>
                 </a>
                 <a href="/order/shopcart" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
