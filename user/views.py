@@ -14,10 +14,7 @@ from user.forms import UserUpdateForm, ProfileUpdateForm
 def index(request):
     category = Category.objects.all()
     setting = Setting.objects.get(pk=1)
-    current_user = request.user
-    print(current_user)
-    profile = UserProfile.objects.get(user_id = current_user.pk)
-    print(profile)
+    profile = UserProfile.objects.get(user_id = request.user.pk)
     context = {'setting': setting,
                'category': category,
                'profile': profile}
@@ -43,6 +40,8 @@ def user_update(request):
             'profile_form': profile_form
         }
         return render(request, 'user_update.html', context)
+
+
 
 @login_required(login_url='/login') # Check login
 def user_password(request):
