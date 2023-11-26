@@ -25,13 +25,6 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-# def detail(request, question_id):
-#     return HttpResponse("You're looking at question %s." % question_id)
-# def results(request, question_id):
-#     response = "You're looking at the results of question %s."
-#     return HttpResponse(response % question_id)
-# def vote(request, question_id):
-#     return HttpResponse("You're voting on question %s." % question_id)
 def hakkimizda(request):
     category = Category.objects.all()
     setting = Setting.objects.get(pk=1)
@@ -177,11 +170,11 @@ def signup_view(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             # Create data in profile table for user
-            current_user = request.user
-            data=UserProfile()
-            data.user_id=current_user.id
-            data.image="images/users/user.png"
-            data.save()
+            # current_user = request.user
+            # data=UserProfile()
+            # data.user_id=current_user.id
+            # data.image="images/users/user.png"
+            # data.save()
             # sonradan eklenecek kısım
             messages.success(request, 'Your account has been created!')
             return HttpResponseRedirect('/')
