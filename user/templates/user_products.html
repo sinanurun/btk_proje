@@ -56,7 +56,12 @@
                                     <td class="text-left">{{ rs.image_tag}} </td>
                                     <td class="text-left">{{ rs.status}} </td>
                                     <td class="text-left"><a class="primary-btn" href="/user/update_product/{{ rs.id }}"> Update </a></td>
-                                    <td class="text-left"><a class="primary-btn" href="/user/delete_product/{{ rs.id }}"> Delete </a></td>
+                                    <td class="text-left">
+                                    <td class="text-left">
+                                        <a class="primary-btn" href="/user/delete_product/{{ rs.id }}"> Delete </a>
+                                        <a class="primary-btn" href="{% url 'user:user_delete_product' rs.id %}"> Delete </a>
+                                        <a class="primary-btn" href="{% url 'user_delete_product' rs.id %}"> Delete </a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </table>
