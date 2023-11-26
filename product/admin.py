@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.http import request
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
 from product.models import Category, Product, Images, Comment
@@ -61,6 +62,7 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('image_tag',)
     inlines = [ProductImagesInline]
     prepopulated_fields = {"slug": ("title",)}  # new
+
 admin.site.register(Product, ProductAdmin)
 
 

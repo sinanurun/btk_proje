@@ -14,6 +14,10 @@ urlpatterns = [
     path('order_product_detail/<int:id>/<int:oid>', views.user_order_product_detail, name='user_order_product_detail'),
     path('comments/', views.user_comments, name='user_comments'),
     path('deletecomment/<int:id>', views.user_deletecomment, name='user_deletecomment'),
+    path('products/', views.user_products, name='user_products'),
+    path('user_product_add/', views.user_product_add, name='user_product_add'),
+    path('delete_product/<int:id>', views.user_delete_product, name='user_delete_product'),
+    path('update_product/<int:id>', views.user_update_product, name='user_update_product'),
 
     # ex: /polls/5/
     # path("<int:question_id>/", views.detail, name="detail"),

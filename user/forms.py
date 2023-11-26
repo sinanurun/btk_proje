@@ -1,9 +1,11 @@
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
-from django.forms import TextInput, EmailInput, Select, FileInput
+from django.forms import TextInput, EmailInput, Select, FileInput, ModelForm
 
 from home.models import UserProfile
+from product.models import Product, Category
 
 
 class UserUpdateForm(UserChangeForm):
@@ -37,3 +39,19 @@ class ProfileUpdateForm(forms.ModelForm):
             'image': FileInput(attrs={'class': 'input', 'placeholder': 'image', }),
         }
 
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+
+        fields = ['category', 'title', 'keywords', 'description', 'image',
+                  'price', 'detail', 'slug']
+        widgets = {
+            'category': Select(attrs={'class': 'input', 'placeholder': 'Category'}, choices=Category.objects.all()),
+            'title': TextInput(attrs={'class': 'input', 'placeholder': 'Title'}),
+            'keywords': TextInput(attrs={'class': 'input', 'placeholder': 'Keywords'}),
+            'description': TextInput(attrs={'class': 'input', 'placeholder': 'Description'}),
+            'image': FileInput(attrs={'class': 'input', 'placeholder': 'Image', }),
+            'price': TextInput(attrs={'class': 'input', 'placeholder': 'Price'}),
+            'detail': CKEditorUploadingWidget(),
+            'slug': TextInput(attrs={'class': 'input', 'placeholder': 'slug'}),
+        }
