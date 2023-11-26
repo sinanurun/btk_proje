@@ -142,21 +142,21 @@ def logout_view(request):
 
 def login_view(request):
     category = Category.objects.all()
-    # if request.method == 'POST':  # check post
-    #     form = LoginForm(request.POST)
-    #     if form.is_valid():
-    #         username = form.cleaned_data['username']
-    #         password = form.cleaned_data['password']
-    #         user = authenticate(username=username, password=password)
-    #
-    #         if user is not None:
-    #             login(request, user)
-    #             request.session['cart_items'] = ShopCart.objects.filter(user_id=user.id).count()
-    #             messages.success(request, "Başarılı şekilde oturum açtınız {}".format(user.username))
-    #             return HttpResponseRedirect('/login')
-    #         else:
-    #             messages.warning(request, "Girilen Bilgiler Hatalı Tekrar Deneyiniz {}".format(username))
-    #             return HttpResponseRedirect('/login')
+    if request.method == 'POST':  # check post
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                request.session['cart_items'] = ShopCart.objects.filter(user_id=user.id).count()
+                messages.success(request, "Başarılı şekilde oturum açtınız {}".format(user.username))
+                return HttpResponseRedirect('/login')
+            else:
+                messages.warning(request, "Girilen Bilgiler Hatalı Tekrar Deneyiniz {}".format(username))
+                return HttpResponseRedirect('/login')
 
     setting = Setting.objects.get(pk=1)
 

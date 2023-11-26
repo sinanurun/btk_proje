@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-
+import json
 from home.models import UserProfile
 from order.models import ShopCartForm, ShopCart, OrderForm, Order, OrderProduct, AddFavorite
 from product.models import Product, Category
@@ -58,7 +58,7 @@ def addtocart(request, id):
         messages.success(request, "Product added to Shopcart")
         return HttpResponseRedirect(url)
 
-
+favori_list=[]
 @login_required(login_url='/login')  # Check login
 def addfavorite(request, id):
     url = request.META.get('HTTP_REFERER')  # get last url
@@ -74,6 +74,9 @@ def addfavorite(request, id):
         data.user_id = current_user.id
         data.product_id = id
         data.save()  #
+        favori_list.append(data.id)
+        json_data = json.dumps(favori_list)
+        request.session['favorite_list'] = json_data
         request.session['favorite_items'] = AddFavorite.objects.filter(user_id=current_user.id).count()
         messages.success(request, "Product added to Favorite")
         return HttpResponseRedirect(url)
@@ -101,6 +104,7 @@ def favorites(request):
     category = Category.objects.all()
     current_user = request.user  # Access User Session information
     favorites = AddFavorite.objects.filter(user_id=current_user.id)
+
     context = {'favorites': favorites,
                'category': category
                }
