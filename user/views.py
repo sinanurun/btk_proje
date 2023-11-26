@@ -167,7 +167,7 @@ def user_product_add(request):
             messages.success(request, "Your Product is Added")
             return HttpResponseRedirect('/user/products')
         else:
-            messages.success(request, "Productl Form Error : " + str(form.errors))
+            messages.success(request, "Product Form Error : " + str(form.errors))
             return HttpResponseRedirect('/user/products')
 
     form = ProductForm

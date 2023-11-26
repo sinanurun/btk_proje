@@ -17,12 +17,12 @@ class Category(MPTTModel):
         ('False', 'Hayir')
     )
     title = models.CharField(max_length=30)
-    keywords = models.CharField(blank=True,max_length=250)
-    description = models.CharField(blank=True,max_length=250)
+    keywords = models.CharField(blank=True, max_length=250)
+    description = models.CharField(blank=True, max_length=250)
     image = models.ImageField(blank=True, upload_to='images/')
     status = models.CharField(max_length=10, choices=STATUS)
     slug = models.SlugField(null=False, unique=True)
-    parent = TreeForeignKey('self', blank=True, null= True, related_name='children', on_delete=models.CASCADE)
+    parent = TreeForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     create_at = models.DateTimeField(auto_now=True)
     update_at = models.DateTimeField(auto_now=True)
 
@@ -44,26 +44,28 @@ class Category(MPTTModel):
             k = k.parent
         return ' / '.join(full_path[::-1])
 
+
 class Product(models.Model):
     STATUS = (
         ('True', 'Evet'),
         ('False', 'Hayir'),
     )
-    category = models.ForeignKey(Category, on_delete=models.CASCADE) #many to one relation with Category
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)  # many to one relation with Category
     title = models.CharField(max_length=150)
-    keywords = models.CharField(blank=True,max_length=255)
-    description = models.TextField(blank=True,max_length=255)
-    image=models.ImageField(blank=True, upload_to='images/')
+    keywords = models.CharField(blank=True, max_length=255)
+    description = models.TextField(blank=True, max_length=255)
+    image = models.ImageField(blank=True, upload_to='images/')
     # price = models.DecimalField(max_digits=12, decimal_places=2,default=0)
-    price= models.FloatField()
-    amount=models.IntegerField(default=0)
-    detail=RichTextUploadingField()
+    price = models.FloatField()
+    amount = models.IntegerField(default=0)
+    detail = RichTextUploadingField()
     # detail = models.TextField()
-    status=models.CharField(max_length=10,choices=STATUS)
-    create_at=models.DateTimeField(auto_now_add=True)
-    update_at=models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=10, choices=STATUS, default='False')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField(null=False, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.title
 
@@ -89,24 +91,27 @@ class Images(models.Model):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
 
     image_tag.short_descripion = 'Image'
+
+
 class Comment(models.Model):
     STATUS = (
         ('New', 'New'),
         ('True', 'True'),
         ('False', 'False'),
     )
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=50, blank=True)
-    comment = models.CharField(max_length=250,blank=True)
+    comment = models.CharField(max_length=250, blank=True)
     rate = models.IntegerField(default=1)
     ip = models.CharField(max_length=20, blank=True)
-    status=models.CharField(max_length=10,choices=STATUS, default='New')
-    create_at=models.DateTimeField(auto_now_add=True)
-    update_at=models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=10, choices=STATUS, default='New')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.subject
+
 
 class CommentForm(ModelForm):
     class Meta:
